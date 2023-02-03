@@ -55,6 +55,7 @@ public:
            // }
     //}
 };
+// class for convert infix string to postfix
 class intopost{
     string inf,postf;
     stack1 stkop;
@@ -63,9 +64,13 @@ public:
     intopost(){
         cout<<"Enter infix expression:";
         cin>>inf;
+        //sending one character to convert function to convert it into postfix
         for(int i=0;inf[i]!='\0';i++){
             ch=inf[i];
             convert(ch);
+        }
+        while(!stkop.stk_empty()){
+            postf+=stkop.pop();//insert all operator after infix string gets over
         }
     }
     void display(){
@@ -77,11 +82,9 @@ public:
     bool isop(char );
     int prec(char );
 };
-void intopost::convert(char ch1){
+void intopost::convert(char ch1)
+{
     if(isempty(ch1)){
-        while(!stkop.stk_empty()){
-            postf+=stkop.pop();
-        }
     }
     else{
         if(ischar(ch1)){
@@ -101,14 +104,16 @@ void intopost::convert(char ch1){
         }
     }
 }
+//checks that current character is not empty
 bool intopost::isempty(char ch2){
-    if(ch2=='\0' || ch2=='\n'){
+    if(ch2=='\0'){
         return 1;
     }
     else{
         return 0;
     }
 }
+// checks that current character is alphabet
 bool intopost::ischar(char ch3){
     if((ch3>='a' && ch3<='z') || (ch3>='A' && ch3<='Z')){
         return 1;
@@ -117,6 +122,7 @@ bool intopost::ischar(char ch3){
         return 0;
     }
 }
+// checks that current character is opeator
 bool intopost::isop(char ch4){
     if(ch4=='+' || ch4=='-' || ch4=='*' || ch4=='/'){
         return 1;
@@ -125,6 +131,7 @@ bool intopost::isop(char ch4){
         return 0;
     }
 }
+//it returns operator precedance
 int intopost::prec(char ch){
     switch(ch){
     case '+':
@@ -140,4 +147,3 @@ int main(){
     ob.display();
     return 0;
 }
-
